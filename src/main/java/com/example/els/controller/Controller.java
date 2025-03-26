@@ -1,7 +1,10 @@
 package com.example.els.controller;
 
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
+import com.example.els.global.Product;
 import com.example.els.global.ProductDto;
+import com.example.els.service.MessageService;
 import com.example.els.service.ProductService;
 import lombok.RequiredArgsConstructor;
 
@@ -11,17 +14,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/product")
 public class Controller {
-    private final ProductService service;
+    private final ProductService productService;
+    private final MessageService messageService;
 
     @PostMapping("/insert")
-    public String requestMethodName(@RequestBody ProductDto dto) {
-        return service.insert(dto).getName();
+    public String insertProduct(@RequestBody ProductDto dto) {
+        String keyword = productService.insert(dto).getName();
+        messageService.publishMessage(keyword);
+        return keyword;
+
     }
 
-    // @GetMapping("/findById")
-    // public Product getProductByKeyword(@RequestParam("keyword") String keyword) {
-    // return service.findBykeyword(keyword);
-    // }
+    @GetMapping("/findByKeyword")
+    public List<Product> getProductByKeyword(@RequestParam("keyword") String keyword) {
+        return productService.findBykeyword(keyword);
+    }
 
 
 
