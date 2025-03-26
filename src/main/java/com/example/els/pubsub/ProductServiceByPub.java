@@ -1,4 +1,4 @@
-package com.example.els.global.pubsub;
+package com.example.els.pubsub;
 
 import java.util.List;
 import org.springframework.stereotype.Service;

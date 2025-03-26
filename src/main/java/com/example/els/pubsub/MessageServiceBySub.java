@@ -1,4 +1,4 @@
-package com.example.els.global.pubsub;
+package com.example.els.pubsub;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

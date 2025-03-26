@@ -4,8 +4,8 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import com.example.els.global.Product;
 import com.example.els.global.ProductDto;
-import com.example.els.global.pubsub.MessageServiceBySub;
-import com.example.els.global.pubsub.ProductServiceByPub;
+import com.example.els.pubsub.MessageServiceBySub;
+import com.example.els.pubsub.ProductServiceByPub;
 import lombok.RequiredArgsConstructor;
 
 

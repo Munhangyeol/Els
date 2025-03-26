@@ -1,6 +1,5 @@
-package com.example.els.global.pubsub;
+package com.example.els.pubsub;
 
-import com.example.els.global.pubsub.KeywordSubscriber;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

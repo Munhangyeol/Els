@@ -1,4 +1,4 @@
-package com.example.els.global.stream;
+package com.example.els.stream;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -2,14 +2,10 @@ package com.example.els.controller;
 
 import com.example.els.global.Product;
 import com.example.els.global.ProductDto;
-import com.example.els.global.pubsub.MessageServiceBySub;
-import com.example.els.global.pubsub.ProductServiceByPub;
-import com.example.els.global.stream.MessageServiceByStream;
-import com.example.els.global.stream.ProductServiceByStream;
+import com.example.els.stream.MessageServiceByStream;
+import com.example.els.stream.ProductServiceByStream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController

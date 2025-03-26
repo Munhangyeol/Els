@@ -1,4 +1,4 @@
-package com.example.els.global.pubsub;
+package com.example.els.pubsub;
 
 import java.nio.charset.StandardCharsets;
 import org.springframework.data.redis.connection.Message;

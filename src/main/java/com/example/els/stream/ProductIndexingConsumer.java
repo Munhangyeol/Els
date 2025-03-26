@@ -1,4 +1,4 @@
-package com.example.els.global.stream;
+package com.example.els.stream;
 
 import com.example.els.global.ProductDocument;
 import com.example.els.repository.ProductELSRepository;
