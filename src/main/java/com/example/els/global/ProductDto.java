@@ -1,4 +1,4 @@
-package com.example.els;
+package com.example.els.global;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;

@@ -1,16 +1,21 @@
-package com.example.els;
+package com.example.els.global;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+<<<<<<< HEAD:src/main/java/com/example/els/Product.java
 import lombok.NoArgsConstructor;
+=======
+import lombok.Data;
+>>>>>>> 8d13d31235d0c7dc9bf164833102aaa0a5465fd0:src/main/java/com/example/els/global/Product.java
 
 
 @Entity
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Data
 public class Product {
 
     @Id

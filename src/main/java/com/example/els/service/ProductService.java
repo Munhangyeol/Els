@@ -1,6 +1,9 @@
-package com.example.els;
+package com.example.els.service;
 
 import org.springframework.stereotype.Service;
+import com.example.els.global.Product;
+import com.example.els.global.ProductDto;
+import com.example.els.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -13,9 +16,9 @@ public class ProductService {
                 .description(dto.getDescription()).price(dto.getPrice()).build());
     }
 
-    public Product findBykeyword(String keyword) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
-    }
+    // public Product findBykeyword(String keyword) {
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    // }
 
 }
