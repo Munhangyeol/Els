@@ -1,6 +1,5 @@
-package com.example.els.service;
+package com.example.els.global.pubsub;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.els.global.Product;
@@ -12,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService {
+public class ProductServiceByPub {
     private final ProductRepository repository;
     private final ProductELSRepository elsRepository;
 

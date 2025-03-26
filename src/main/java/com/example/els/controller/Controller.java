@@ -4,8 +4,8 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import com.example.els.global.Product;
 import com.example.els.global.ProductDto;
-import com.example.els.service.MessageService;
-import com.example.els.service.ProductService;
+import com.example.els.global.pubsub.MessageServiceBySub;
+import com.example.els.global.pubsub.ProductServiceByPub;
 import lombok.RequiredArgsConstructor;
 
 
@@ -14,8 +14,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/product")
 public class Controller {
-    private final ProductService productService;
-    private final MessageService messageService;
+    private final ProductServiceByPub productService;
+    private final MessageServiceBySub messageService;
 
     @PostMapping("/insert")
     public String insertProduct(@RequestBody ProductDto dto) {

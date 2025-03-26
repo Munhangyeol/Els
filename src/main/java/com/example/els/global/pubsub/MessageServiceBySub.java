@@ -1,6 +1,5 @@
-package com.example.els.service;
+package com.example.els.global.pubsub;
 
-import java.nio.charset.StandardCharsets;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MessageService {
+public class MessageServiceBySub {
 
     private final RedisTemplate template;
 
