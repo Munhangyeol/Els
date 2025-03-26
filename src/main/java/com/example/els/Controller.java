@@ -13,12 +13,12 @@ public class Controller {
 
     @PostMapping("/insert")
     public String requestMethodName(@RequestBody ProductDto dto) {
-        return service.insert(dto);
+        return service.insert(dto).toString();
     }
 
     @GetMapping("/findById")
     public Product getProductByKeyword(@RequestParam("keyword") String keyword) {
-        return service.findById(keyword);
+        return service.findBykeyword(keyword);
     }
 
 
