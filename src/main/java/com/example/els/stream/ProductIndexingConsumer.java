@@ -22,7 +22,8 @@ public class ProductIndexingConsumer {
 
     private final RedisTemplate redisTemplate;
     private final ProductRepository productRepository;
-    private final ProductELSRepository elsRepository;
+    private final ElsService elsService;
+
 
     private static final String STREAM_KEY = "product-update-stream";
     private static final String GROUP = "product-group";
@@ -40,10 +41,7 @@ public class ProductIndexingConsumer {
 
     public void consume() {
         while (true) {
-            List<MapRecord<String, Object, Object>> records =
-                    redisTemplate.opsForStream().read(Consumer.from(GROUP, CONSUMER),
-                            StreamReadOptions.empty().block(Duration.ofSeconds(2)),
-                            StreamOffset.create(STREAM_KEY, ReadOffset.lastConsumed()));
+            List<MapRecord<String, Object, Object>> records = serializeByStream();
 
             for (MapRecord<String, Object, Object> record : records) {
                 Map<Object, Object> data = record.getValue();
@@ -54,24 +52,38 @@ public class ProductIndexingConsumer {
                 Long productId = Long.valueOf(productIdStr);
 
                 // 메시지에 따라 ELS 처리
-                switch (action) {
-                    case "insert":
-                    case "update":
-                        productRepository.findById(productId).ifPresent(product -> {
-                            elsRepository.save(ProductDocument.builder().name(product.getName())
-                                    .category(product.getCategory())
-                                    .description(product.getDescription()).price(product.getPrice())
-                                    .stock(product.getStock()).build());
-                        });
-                        break;
-                    case "delete":
-
-                        break;
-                }
+                updateELS(action, productId);
 
                 // ack
                 redisTemplate.opsForStream().acknowledge(STREAM_KEY, GROUP, record.getId());
             }
+        }
+    }
+
+
+
+
+
+    //util로 빼도 됨.
+    private List<MapRecord<String, Object, Object>> serializeByStream() {
+        List<MapRecord<String, Object, Object>> records =
+                redisTemplate.opsForStream().read(Consumer.from(GROUP, CONSUMER),
+                        StreamReadOptions.empty().block(Duration.ofSeconds(2)),
+                        StreamOffset.create(STREAM_KEY, ReadOffset.lastConsumed()));
+        return records;
+    }
+
+    private void updateELS(String action, Long productId) {
+        switch (action) {
+            case "insert":
+            case "update":
+                productRepository.findById(productId).ifPresent(product -> {
+                  elsService.saveByProduct(product);
+                });
+                break;
+            case "delete":
+
+                break;
         }
     }
 }
