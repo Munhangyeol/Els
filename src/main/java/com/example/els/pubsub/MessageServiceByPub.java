@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MessageServiceBySub {
+public class MessageServiceByPub {
 
     private final RedisTemplate template;
 

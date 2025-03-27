@@ -1,6 +1,7 @@
 package com.example.els.stream;
 
-import com.example.els.global.ProductDocument;
+import com.example.els.global.entity.ProductDocument;
+import com.example.els.global.ProductDto;
 import com.example.els.repository.ProductELSRepository;
 import com.example.els.repository.ProductRepository;
 import jakarta.annotation.PostConstruct;
@@ -31,7 +32,8 @@ public class ProductIndexingConsumer {
     public void init() {
         try {
             redisTemplate.opsForStream().createGroup(STREAM_KEY, GROUP);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         new Thread(this::consume).start();
     }
@@ -39,16 +41,14 @@ public class ProductIndexingConsumer {
     public void consume() {
         while (true) {
             List<MapRecord<String, Object, Object>> records =
-                redisTemplate.opsForStream().read(
-                    Consumer.from(GROUP, CONSUMER),
-                    StreamReadOptions.empty().block(Duration.ofSeconds(2)),
-                    StreamOffset.create(STREAM_KEY, ReadOffset.lastConsumed())
-                );
+                    redisTemplate.opsForStream().read(Consumer.from(GROUP, CONSUMER),
+                            StreamReadOptions.empty().block(Duration.ofSeconds(2)),
+                            StreamOffset.create(STREAM_KEY, ReadOffset.lastConsumed()));
 
             for (MapRecord<String, Object, Object> record : records) {
                 Map<Object, Object> data = record.getValue();
                 String productIdStr = data.get("productId").toString();
-                log.info("Redis Stream 수신: "+productIdStr);
+                log.info("Redis Stream 수신: " + productIdStr);
 
                 String action = data.get("action").toString();
                 Long productId = Long.valueOf(productIdStr);
@@ -58,17 +58,14 @@ public class ProductIndexingConsumer {
                     case "insert":
                     case "update":
                         productRepository.findById(productId).ifPresent(product -> {
-                            elsRepository.save(ProductDocument.builder()
-                                    .name(product.getName())
+                            elsRepository.save(ProductDocument.builder().name(product.getName())
                                     .category(product.getCategory())
-                                    .description(product.getDescription())
-                                    .price(product.getPrice())
-                                    .stock(product.getStock())
-                                    .build());
+                                    .description(product.getDescription()).price(product.getPrice())
+                                    .stock(product.getStock()).build());
                         });
                         break;
                     case "delete":
-                        elsRepository.deleteById(productId);
+
                         break;
                 }
 

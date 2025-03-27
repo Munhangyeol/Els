@@ -1,7 +1,7 @@
 package com.example.els.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.els.global.Product;
+import com.example.els.global.entity.Product;
 
 
 

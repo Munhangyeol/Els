@@ -1,4 +1,4 @@
-package com.example.els.global;
+package com.example.els.global.entity;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
